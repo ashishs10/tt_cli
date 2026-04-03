@@ -61,7 +61,7 @@ async function writeFile(file, data) {
 }
 
 // initFile("todo.json");
-
+// ADD TASK
 async function addTask(description) {
   let data = await initFile("todo.json");
   if (!description) {
@@ -83,6 +83,10 @@ async function addTask(description) {
   return;
 }
 
+async function updateTask(description) {}
+
 if (userAction === "add") {
   addTask(input);
+} else if (userAction === "update") {
+  updateTask(input);
 }
