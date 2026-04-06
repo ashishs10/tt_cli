@@ -39,7 +39,6 @@ async function initFile(file) {
     await fs.access(file);
     const data = await readFile(file);
 
-    console.log("file exists");
     return data;
   } catch (err) {
     try {
@@ -67,15 +66,33 @@ async function writeFile(file, data) {
 // initFile("todo.json");
 // ADD TASK
 async function addTask(description) {
-  let data = await initFile("todo.json");
-  if (!description) {
-    console.log("no description of the task given");
-    return;
-  }
+  try {
+    let data = await initFile("todo.json");
+    if (!description) {
+      console.log("no description of the task given");
+      return;
+    }
 
-  if (data.length === 0) {
+    if (data.length === 0) {
+      data.push({
+        id: 1,
+        description: description,
+        status: "todo",
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+      });
+      await writeFile("todo.json", data);
+      return;
+    }
+
+    // [{},{},{},{}]
+    const id =
+      data.length > 0
+        ? data.map((task) => task.id).reduce((a, b) => Math.max(a, b)) + 1
+        : 0;
+
     data.push({
-      id: 1,
+      id,
       description: description,
       status: "todo",
       createdAt: Date.now(),
@@ -83,23 +100,9 @@ async function addTask(description) {
     });
     await writeFile("todo.json", data);
     return;
+  } catch (error) {
+    console.log(error.message);
   }
-
-  // [{},{},{},{}]
-  const id =
-    data.length > 0
-      ? data.map((task) => task.id).reduce((a, b) => Math.max(a, b)) + 1
-      : 0;
-
-  data.push({
-    id,
-    description: description,
-    status: "todo",
-    createdAt: Date.now(),
-    updatedAt: Date.now(),
-  });
-  await writeFile("todo.json", data);
-  return;
 }
 
 async function updateTask(description, id) {
@@ -147,10 +150,19 @@ async function deleteTask(id) {
   }
 }
 
-async function showAllTask() {
+async function showAllTask(status) {
   try {
-    const data = await readFile("todo.json");
+    if (!status) {
+      const data = await initFile("todo.json");
+      console.log(data);
+      return;
+    }
+
+    const response = await initFile("todo.json");
+
+    const data = response.filter((task) => task.status === status);
     console.log(data);
+    return;
   } catch (error) {
     console.log(error.message);
   }
@@ -173,9 +185,8 @@ if (userAction === "add") {
   const id = cliInput[1];
   deleteTask(id);
 } else if (userAction === "list") {
-  showAllTask();
-}
+  const status = cliInput[1];
+  showAllTask(status);
+}else if(userAction === )
 
 // TODO
-// Clean command handling
-// add with clean command handling
