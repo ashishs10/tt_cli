@@ -23,16 +23,6 @@ const input = process.argv[3];
 const cliInput = process.argv.slice(2);
 
 const userAction = cliInput[0];
-
-let id;
-let description;
-
-if (cliInput.length === 3) {
-  id = cliInput[1];
-  description = cliInput[2];
-} else if (cliInput.length === 2) {
-  description = cliInput[1];
-}
 // -----------------HELPER FUNCTIONS
 async function readFile(file) {
   try {
@@ -84,7 +74,13 @@ async function addTask(description) {
   }
 
   if (data.length === 0) {
-    data.push({ description: description, status: "todo", id: 1 });
+    data.push({
+      id: 1,
+      description: description,
+      status: "todo",
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+    });
     await writeFile("todo.json", data);
     return;
   }
@@ -95,7 +91,13 @@ async function addTask(description) {
       ? data.map((task) => task.id).reduce((a, b) => Math.max(a, b)) + 1
       : 0;
 
-  data.push({ description: description, status: "todo", id });
+  data.push({
+    id,
+    description: description,
+    status: "todo",
+    createdAt: Date.now(),
+    updatedAt: Date.now(),
+  });
   await writeFile("todo.json", data);
   return;
 }
@@ -104,7 +106,6 @@ async function updateTask(description, id) {
   // const task =
   try {
     const data = await initFile("todo.json");
-    console.log("data : ", data);
 
     const taskIndex = data.findIndex((task) => task.id === Number(id));
     console.log("task index : ", taskIndex);
@@ -115,6 +116,7 @@ async function updateTask(description, id) {
     }
 
     data[taskIndex].description = description;
+    data[taskIndex].updatedAt = Date.now();
     await writeFile("todo.json", data);
     console.log("Task updated");
     return;
@@ -155,24 +157,25 @@ async function showAllTask() {
 }
 
 if (userAction === "add") {
+  const description = cliInput.slice(1).join(" ");
   addTask(description);
 } else if (userAction === "update") {
-  console.log(cliInput.length);
-  if (cliInput.length != 3) {
-    console.log("Some arguments missing");
-    return;
-  }
+  const id = cliInput[1];
+  const description = cliInput.slice(2).join(" ");
+
   if (!id) {
     console.log("No id given");
   }
 
   const updateId = Number.isNaN(Number(input));
-  if (!updateId) {
-    updateTask(description, id);
-  }
-  console.log(updateId);
+  updateTask(description, id);
 } else if (userAction === "delete") {
-  deleteTask(description);
+  const id = cliInput[1];
+  deleteTask(id);
 } else if (userAction === "list") {
   showAllTask();
 }
+
+// TODO
+// Clean command handling
+// add with clean command handling
