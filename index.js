@@ -128,6 +128,28 @@ async function updateTask(description, id) {
   }
 }
 
+async function markTask(id, status) {
+  try {
+    const data = await initFile("todo.json");
+
+    const taskIndex = data.findIndex((task) => task.id === Number(id));
+    console.log("task index : ", taskIndex);
+
+    if (taskIndex === -1) {
+      console.log("No task exist with id");
+      return;
+    }
+
+    data[taskIndex].status = status;
+    data[taskIndex].updatedAt = Date.now();
+    await writeFile("todo.json", data);
+    console.log("Task updated");
+    return;
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
 async function deleteTask(id) {
   try {
     const taskId = Number(id);
@@ -187,6 +209,18 @@ if (userAction === "add") {
 } else if (userAction === "list") {
   const status = cliInput[1];
   showAllTask(status);
-}else if(userAction === )
+} else if (userAction === "mark-in-progress") {
+  const id = cliInput[1];
+  const status = cliInput[0].split("-").slice(1).join("-");
+  console.log(status);
+
+  markTask(id, status);
+} else if (userAction === "mark-done") {
+  const id = cliInput[1];
+  const status = cliInput[0].split("-").slice(1).join("-");
+
+  console.log(status);
+  markTask(id, status);
+}
 
 // TODO
