@@ -232,18 +232,12 @@ if (userAction === "add") {
 } else if (userAction === "list") {
   const status = cliInput[1];
   showAllTask(status);
-} else if (userAction === "mark-in-progress") {
+} else if (userAction.includes("mark-")) {
   const id = cliInput[1];
-  const status = cliInput[0].split("-").slice(1).join("-");
+  console.log(cliInput);
+  const status = cliInput[0].replace("mark-", "");
+  console.log(status);
   console.log(status);
 
-  markTask(id, status);
-} else if (userAction === "mark-done") {
-  const id = cliInput[1];
-  const status = cliInput[0].split("-").slice(1).join("-");
-
-  console.log(status);
   markTask(id, status);
 }
-
-// TODO
