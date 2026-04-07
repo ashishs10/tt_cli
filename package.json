@@ -2,10 +2,10 @@
   "name": "task_tracker_cli",
   "version": "1.0.0",
   "bin": {
-    "tt": "./index.js"
+    "task-cli": "./task-cli.js"
   },
   "description": "",
-  "main": "index.js",
+  "main": "task-cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

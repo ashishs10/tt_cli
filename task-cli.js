@@ -1,4 +1,4 @@
-// #!/usr/bin/env node
+#!/usr/bin/env node
 
 // process.stdin.setEncoding("utf-8");
 
@@ -67,7 +67,6 @@ async function initFile(file) {
 async function writeFile(file, data) {
   try {
     await fs.writeFile(file, JSON.stringify(data, null, 2));
-    console.log("task added successfully");
     return;
   } catch (error) {
     throw error;
@@ -123,7 +122,6 @@ async function updateTask(description, id) {
     const data = await initFile("todo.json");
 
     const taskIndex = data.findIndex((task) => task.id === Number(id));
-    console.log("task index : ", taskIndex);
 
     if (taskIndex === -1) {
       console.log("No task exist with id");
@@ -145,7 +143,6 @@ async function markTask(id, status) {
     const data = await initFile("todo.json");
 
     const taskIndex = data.findIndex((task) => task.id === Number(id));
-    console.log("task index : ", taskIndex);
 
     if (taskIndex === -1) {
       console.log("No task exist with id");
