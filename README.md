@@ -164,3 +164,9 @@ Ashish Singh
 # 🏁 License
 
 ISC
+
+# 🔗 Project Reference
+
+This project is inspired by:
+
+https://roadmap.sh/projects/task-tracker
