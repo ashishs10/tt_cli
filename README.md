@@ -8,17 +8,17 @@ Track what you need to do, what you're working on, and what you've completed —
 
 # 🚀 Features
 
-- ✅ Add new tasks  
-- ✏️ Update existing tasks  
-- ❌ Delete tasks  
+- ✅ Add new tasks
+- ✏️ Update existing tasks
+- ❌ Delete tasks
 - 🔄 Mark tasks as:
   - `todo`
   - `in-progress`
-  - `done`  
-- 📋 List all tasks  
-- 🔍 Filter tasks by status  
-- 🗂 Persistent storage using JSON file  
-- 🧾 Clean and formatted CLI output  
+  - `done`
+- 📋 List all tasks
+- 🔍 Filter tasks by status
+- 🗂 Persistent storage using JSON file
+- 🧾 Clean and formatted CLI output
 
 ---
 
@@ -27,7 +27,7 @@ Track what you need to do, what you're working on, and what you've completed —
 ## 1. Clone the repository
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/ashishs10/tt_cli.git
 cd task_tracker_cli
 ```
 
@@ -54,16 +54,19 @@ task-cli
 # ⚙️ Usage
 
 ## ➕ Add a Task
+
 ```bash
 task-cli add "Buy groceries"
 ```
 
 ## ✏️ Update a Task
+
 ```bash
 task-cli update 1 "Buy groceries and cook dinner"
 ```
 
 ## ❌ Delete a Task
+
 ```bash
 task-cli delete 1
 ```
@@ -71,11 +74,13 @@ task-cli delete 1
 ## 🔄 Mark Task Status
 
 ### Mark as In Progress
+
 ```bash
 task-cli mark-in-progress 1
 ```
 
 ### Mark as Done
+
 ```bash
 task-cli mark-done 1
 ```
@@ -83,11 +88,13 @@ task-cli mark-done 1
 ## 📋 List Tasks
 
 ### List all tasks
+
 ```bash
 task-cli list
 ```
 
 ### List by status
+
 ```bash
 task-cli list done
 task-cli list todo
@@ -140,11 +147,11 @@ Example:
 
 # 🚧 Future Improvements
 
-- Add help command  
-- Improve validation  
-- Add colors  
-- Search tasks  
-- Database integration  
+- Add help command
+- Improve validation
+- Add colors
+- Search tasks
+- Database integration
 
 ---
 
@@ -157,4 +164,3 @@ Ashish Singh
 # 🏁 License
 
 ISC
-
