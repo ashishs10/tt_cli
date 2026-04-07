@@ -23,6 +23,18 @@ const input = process.argv[3];
 const cliInput = process.argv.slice(2);
 
 const userAction = cliInput[0];
+
+// FORMATTER
+function formatTask(task) {
+  return `${task.id.toString().padEnd(5)} | ${task.status.padEnd(12)} | ${task.description}`;
+}
+
+function printHeader() {
+  console.log("ID    | Status       | Description");
+  console.log("----------------------------------------");
+}
+// FORMATTER END
+
 // -----------------HELPER FUNCTIONS
 async function readFile(file) {
   try {
@@ -176,14 +188,25 @@ async function showAllTask(status) {
   try {
     if (!status) {
       const data = await initFile("todo.json");
-      console.log(data);
+      // console.log(data);
+
+      printHeader();
+      data.map((task) => {
+        console.log(formatTask(task));
+      });
       return;
     }
 
     const response = await initFile("todo.json");
 
     const data = response.filter((task) => task.status === status);
-    console.log(data);
+    // console.log(data);
+
+    printHeader();
+    data.map((task) => {
+      console.log(formatTask(task));
+    });
+
     return;
   } catch (error) {
     console.log(error.message);
